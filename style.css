@@ -10,7 +10,7 @@ body {
     background-attachment: fixed;
     color: #f0f0f0;
     display: flex;
-    flex-direction: column; /* Para alinear footer abajo */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -46,26 +46,9 @@ body {
     cursor: pointer;
 }
 
-h1 {
-    font-family: 'Cinzel', serif;
-    color: #00a86b;
-    text-shadow: 0 0 5px rgba(0, 168, 107, 0.7);
-    margin-top: 0;
-}
-
-.subtitle {
-    margin-top: -15px;
-    color: #aaa;
-    margin-bottom: 40px;
-}
-
-.tab-nav {
-    display: flex;
-    justify-content: center; /* Centra las pestañas */
-    border-bottom: 2px solid #005a41;
-    margin-bottom: 30px;
-}
-
+h1 { font-family: 'Cinzel', serif; color: #00a86b; text-shadow: 0 0 5px rgba(0, 168, 107, 0.7); margin-top: 0; }
+.subtitle { margin-top: -15px; color: #aaa; margin-bottom: 40px; }
+.tab-nav { display: flex; justify-content: center; border-bottom: 2px solid #005a41; margin-bottom: 30px; }
 .tab-link { background: none; border: none; color: #aaa; padding: 15px 20px; font-size: 16px; font-weight: bold; cursor: pointer; transition: all 0.3s; position: relative; top: 2px; }
 .tab-link.active { color: #00ff9b; border-bottom: 3px solid #00ff9b; }
 .tab-link:not(.active):hover { color: #f0f0f0; }
@@ -119,7 +102,7 @@ h1 {
     transform: translateX(-20px) rotate(-5deg);
 }
 
-.sword-name, .grade-list, .btn-add-grade, .corte-result { position: relative; z-index: 1; }
+.sword-name, .grade-list, .btn-add-grade, .corte-result, .corte-warning { position: relative; z-index: 1; }
 .sword-name { font-family: 'Cinzel', serif; color: #f0f0f0; text-align: left; margin: 0 0 20px 0; border-bottom: 1px solid #005a41; padding-bottom: 10px; }
 .grade-list { display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px; }
 .grade-row { display: flex; gap: 10px; align-items: center; }
@@ -129,6 +112,14 @@ h1 {
 .btn-remove-grade:hover { background-color: #B22222; }
 .btn-add-grade, #btn-add-materia { background-color: transparent; border: 2px solid #008a5e; color: #008a5e; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s; display: inline-block; }
 .btn-add-grade:hover, #btn-add-materia:hover { background-color: #008a5e; color: white; }
+
+.btn-add-grade:disabled {
+    background-color: #333;
+    color: #666;
+    border-color: #444;
+    cursor: not-allowed;
+}
+
 .corte-result { text-align: right; margin-top: 15px; font-weight: bold; color: #ccc; }
 .corte-result span { color: #00a86b; font-size: 1.2em; }
 .semestre-container { background-color: #1e1e1e; border: 1px solid #333; border-left: 5px solid #b8860b; border-radius: 8px; padding: 20px; margin-bottom: 30px; }
@@ -154,4 +145,83 @@ h1 {
 .page-footer p {
     margin: 5px 0;
     font-size: 14px;
+}
+
+.corte-warning {
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 13px;
+    margin-top: 15px;
+    min-height: 18px;
+    text-align: right;
+    transition: opacity 0.3s ease;
+}
+
+/* --- RESPONSIVE DESIGN PARA DISPOSITIVOS MÓVILES --- */
+/* Estos estilos se aplicarán solo en pantallas con un ancho máximo de 768px (tablets y teléfonos) */
+@media (max-width: 768px) {
+
+    body {
+        /* Reducimos el padding para aprovechar más el espacio */
+        padding: 20px 10px;
+    }
+
+    .zoro-container {
+        /* Menos padding interno en el contenedor principal */
+        padding: 20px;
+    }
+
+    .zoro-avatar {
+        /* Hacemos el avatar un poco más pequeño */
+        width: 90px;
+        height: 90px;
+    }
+
+    h1 {
+        /* Reducimos el tamaño del título principal */
+        font-size: 28px;
+    }
+    
+    .tab-link {
+        /* Hacemos los botones de las pestañas un poco más pequeños */
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+
+    .grade-row {
+        /* Apilamos los campos verticalmente en lugar de en fila */
+        flex-direction: column;
+        align-items: stretch; /* Hacemos que los elementos ocupen todo el ancho */
+        gap: 12px; /* Espacio entre los elementos apilados */
+    }
+
+    .grade-row input {
+        width: 100%; /* Aseguramos que los inputs ocupen todo el ancho disponible */
+    }
+    
+    .btn-remove-grade {
+        /* Posicionamos el botón de eliminar a la derecha */
+        align-self: flex-end;
+        width: 40px; /* Le damos un ancho fijo */
+        height: 40px;
+    }
+
+    .corte-container::before {
+        /* Ocultamos las imágenes de las espadas en pantallas pequeñas */
+        display: none;
+    }
+    
+    .final-result-section {
+        padding: 20px;
+    }
+
+    .result-display span {
+        /* Reducimos el tamaño de la fuente del resultado final */
+        font-size: 36px;
+    }
+
+    .page-footer p {
+        /* Hacemos un poco más pequeña la letra del footer */
+        font-size: 12px;
+    }
 }

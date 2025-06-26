@@ -3,30 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dojo del Espadachín - Cálculos de Promedio</title>
+    <!-- Meta etiquetas para SEO -->
+    <title>Dojo del Espadachín - Calculadora de Promedios Estilo Zoro</title>
+    <meta name="description" content="Calcula el promedio de tus notas por materia (3 cortes) y el promedio ponderado de tu semestre con esta calculadora temática de Roronoa Zoro de One Piece.">
+    <meta name="keywords" content="calculadora de promedio, promedio ponderado, one piece, zoro, calculadora de notas, promedio semestre, promedio materia">
+    <meta name="author" content="[Tu Nombre o Usuario]">
+    <link rel="canonical" href="https://TU_USUARIO.github.io/dojo-del-espadachin/">
+    <!-- Open Graph para Redes Sociales -->
+    <meta property="og:title" content="Dojo del Espadachín - Calculadora de Promedios">
+    <meta property="og:description" content="Calcula tus promedios de notas con el estilo de las tres espadas de Zoro.">
+    <meta property="og:image" content="https://TU_USUARIO.github.io/dojo-del-espadachin/images/zoro_avatar.png">
+    <meta property="og:url" content="https://TU_USUARIO.github.io/dojo-del-espadachin/">
+    <meta property="og:type" content="website">
+    <!-- Verificación de Google -->
+    <meta name="google-site-verification" content="TU_ETIQUETA_DE_VERIFICACION"/>
+    
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="zoro-container">
-        <!-- FOTO DE ZORO -->
         <img src="images/logo zoro.png" alt="Avatar de Roronoa Zoro" class="zoro-avatar">
-
         <h1>Dojo del Espadachín</h1>
         <p class="subtitle">Domina tus notas con la precisión de un maestro espadachín.</p>
 
-        <!-- Pestañas de Navegación -->
         <div class="tab-nav">
             <button class="tab-link active" data-tab="tab-materia">Promedio por Materia</button>
             <button class="tab-link" data-tab="tab-semestre">Promedio del Semestre</button>
         </div>
 
-        <!-- Contenido de las Pestañas -->
         <div class="tab-content">
-            <!-- PESTAÑA 1: CALCULADORA DE PROMEDIO POR MATERIA (3 CORTES) -->
             <div id="tab-materia" class="tab-pane active">
-                <!-- EXPLICACIÓN AÑADIDA -->
                 <p class="explanation-text">
                     Ingresa la nota y su respectivo peso porcentual (ej: 20 para 20%) en cada uno de los tres cortes.
                 </p>
@@ -35,18 +43,21 @@
                     <h2 class="sword-name">I: Wado Ichimonji (30%)</h2>
                     <div class="grade-list"></div>
                     <button class="btn-add-grade" data-corte="1">+ Añadir Nota/Peso</button>
+                    <div class="corte-warning"></div>
                     <div class="corte-result">Promedio del Corte: <span id="corte1-result">0.00</span></div>
                 </div>
                 <div class="corte-container" id="corte2">
                     <h2 class="sword-name">II: Sandai Kitetsu (30%)</h2>
                     <div class="grade-list"></div>
                     <button class="btn-add-grade" data-corte="2">+ Añadir Nota/Peso</button>
+                    <div class="corte-warning"></div>
                     <div class="corte-result">Promedio del Corte: <span id="corte2-result">0.00</span></div>
                 </div>
                 <div class="corte-container" id="corte3">
                     <h2 class="sword-name">III: Enma (40%)</h2>
                     <div class="grade-list"></div>
                     <button class="btn-add-grade" data-corte="3">+ Añadir Nota/Peso</button>
+                    <div class="corte-warning"></div>
                     <div class="corte-result">Promedio del Corte: <span id="corte3-result">0.00</span></div>
                 </div>
                 <div class="final-result-section">
@@ -59,17 +70,13 @@
                 </div>
             </div>
 
-            <!-- PESTAÑA 2: CALCULADORA DE PROMEDIO DEL SEMESTRE (POR CRÉDITOS) -->
             <div id="tab-semestre" class="tab-pane">
-                 <!-- EXPLICACIÓN AÑADIDA -->
                 <p class="explanation-text">
                     Ingresa la nota final que obtuviste en cada materia y el número de créditos que vale.
                 </p>
                 <div class="semestre-container">
                     <h2 class="sword-name">Dominio del Semestre</h2>
-                    <div id="semestre-grade-list" class="grade-list">
-                        <!-- Las materias se añadirán aquí -->
-                    </div>
+                    <div id="semestre-grade-list" class="grade-list"></div>
                     <button id="btn-add-materia">+ Añadir Materia</button>
                 </div>
                  <div class="final-result-section">
@@ -84,9 +91,8 @@
         </div>
     </div>
 
-    <!-- FOOTER AÑADIDO -->
     <footer class="page-footer">
-        <p>Forjado con Haki por Ms_Castellanos11. © 2025</p>
+        <p>Forjado con Haki por [Tu Nombre o Usuario]. © 2024</p>
         <p>Inspirado en el universo de One Piece de Eiichirō Oda.</p>
     </footer>
 

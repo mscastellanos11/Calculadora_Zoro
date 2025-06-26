@@ -16,25 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
     // ===================================================================
     // --- CALCULADORA 1: PROMEDIO POR MATERIA (3 CORTES) ---
     // ===================================================================
+    const MAX_PESOS = {
+        corte1: 30,
+        corte2: 30,
+        corte3: 40,
+    };
     const PONDERACIONES_CORTES = { corte1: 0.3, corte2: 0.3, corte3: 0.4 };
     const NOTA_APROBATORIA_MATERIA = 3.0;
 
     document.querySelectorAll('.btn-add-grade').forEach(button => {
-        button.addEventListener('click', (e) => addGradeRowMateria(e.target.dataset.corte));
+        button.addEventListener('click', (e) => {
+            addGradeRowMateria(e.target.dataset.corte);
+            validateAndCalculateCorte(e.target.dataset.corte);
+        });
     });
 
     document.getElementById('tab-materia').addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-remove-grade')) {
-            e.target.closest('.grade-row').remove();
             const corteId = e.target.closest('.corte-container').id.replace('corte', '');
-            calculateCorteAverage(corteId);
+            e.target.closest('.grade-row').remove();
+            validateAndCalculateCorte(corteId);
         }
     });
 
     document.getElementById('tab-materia').addEventListener('input', (e) => {
-        if (e.target.matches('.grade-input, .credit-input')) {
+        if (e.target.matches('.credit-input')) { // Solo validamos los pesos
             const corteId = e.target.closest('.corte-container').id.replace('corte', '');
-            calculateCorteAverage(corteId);
+            validateAndCalculateCorte(corteId, e.target);
+        } else if (e.target.matches('.grade-input')) { // Si es nota, solo recalcula
+            const corteId = e.target.closest('.corte-container').id.replace('corte', '');
+            validateAndCalculateCorte(corteId);
         }
     });
 
@@ -48,26 +59,52 @@ document.addEventListener('DOMContentLoaded', () => {
         list.appendChild(row);
     }
 
-    function calculateCorteAverage(corteId) {
+    function validateAndCalculateCorte(corteId, triggeredInput = null) {
         const rows = document.querySelectorAll(`#corte${corteId} .grade-row`);
-        let sumPonderado = 0, sumPesos = 0;
+        const warningDiv = document.querySelector(`#corte${corteId} .corte-warning`);
+        const addButton = document.querySelector(`.btn-add-grade[data-corte="${corteId}"]`);
+        const limitePeso = MAX_PESOS[`corte${corteId}`];
+        
+        let sumPesos = 0;
         rows.forEach(row => {
-            const nota = parseFloat(row.querySelector('.grade-input').value);
-            const peso = parseFloat(row.querySelector('.credit-input').value);
-            if (!isNaN(nota) && !isNaN(peso) && peso > 0) {
+            const peso = parseFloat(row.querySelector('.credit-input').value) || 0;
+            sumPesos += peso;
+        });
+
+        if (sumPesos > limitePeso && triggeredInput) {
+            const valorActual = parseFloat(triggeredInput.value) || 0;
+            const exceso = sumPesos - limitePeso;
+            const valorCorregido = valorActual - exceso;
+            
+            triggeredInput.value = valorCorregido.toFixed(1);
+            warningDiv.textContent = "Límite alcanzado. Valor ajustado.";
+            
+            sumPesos = 0;
+            rows.forEach(row => sumPesos += parseFloat(row.querySelector('.credit-input').value) || 0);
+        } else {
+            warningDiv.textContent = "";
+        }
+
+        addButton.disabled = sumPesos >= limitePeso;
+
+        let sumPonderado = 0;
+        rows.forEach(row => {
+            const nota = parseFloat(row.querySelector('.grade-input').value) || 0;
+            const peso = parseFloat(row.querySelector('.credit-input').value) || 0;
+            if (peso > 0) {
                 sumPonderado += nota * peso;
-                sumPesos += peso;
             }
         });
+        
         const promedio = sumPesos === 0 ? 0 : sumPonderado / sumPesos;
         document.getElementById(`corte${corteId}-result`).textContent = promedio.toFixed(2);
         return promedio;
     }
 
     function calculateFinalMateriaGrade() {
-        const prom1 = calculateCorteAverage('1');
-        const prom2 = calculateCorteAverage('2');
-        const prom3 = calculateCorteAverage('3');
+        const prom1 = validateAndCalculateCorte('1');
+        const prom2 = validateAndCalculateCorte('2');
+        const prom3 = validateAndCalculateCorte('3');
         const notaFinal = (prom1 * PONDERACIONES_CORTES.corte1) + (prom2 * PONDERACIONES_CORTES.corte2) + (prom3 * PONDERACIONES_CORTES.corte3);
         
         const finalGradeSpan = document.getElementById('materia-final-grade');
@@ -94,15 +131,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CALCULADORA 2: PROMEDIO DEL SEMESTRE (POR CRÉDITOS) ---
     // ===================================================================
     const NOTA_APROBATORIA_SEMESTRE = 3.5;
-
     document.getElementById('btn-add-materia').addEventListener('click', addMateriaRow);
-
     document.getElementById('tab-semestre').addEventListener('click', (e) => {
         if (e.target.classList.contains('btn-remove-grade')) {
             e.target.closest('.grade-row').remove();
         }
     });
-
     document.getElementById('btn-calculate-semestre').addEventListener('click', calculateFinalSemestreGrade);
 
     function addMateriaRow() {
