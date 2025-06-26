@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo del Espadachín - Cálculos de Promedio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="zoro-container">
+        <!-- FOTO DE ZORO -->
+        <img src="images/logo zoro.png" alt="Avatar de Roronoa Zoro" class="zoro-avatar">
+
+        <h1>Dojo del Espadachín</h1>
+        <p class="subtitle">Domina tus notas con la precisión de un maestro espadachín.</p>
+
+        <!-- Pestañas de Navegación -->
+        <div class="tab-nav">
+            <button class="tab-link active" data-tab="tab-materia">Promedio por Materia</button>
+            <button class="tab-link" data-tab="tab-semestre">Promedio del Semestre</button>
+        </div>
+
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content">
+            <!-- PESTAÑA 1: CALCULADORA DE PROMEDIO POR MATERIA (3 CORTES) -->
+            <div id="tab-materia" class="tab-pane active">
+                <!-- EXPLICACIÓN AÑADIDA -->
+                <p class="explanation-text">
+                    Ingresa la nota y su respectivo peso porcentual (ej: 20 para 20%) en cada uno de los tres cortes.
+                </p>
+
+                <div class="corte-container" id="corte1">
+                    <h2 class="sword-name">I: Wado Ichimonji (30%)</h2>
+                    <div class="grade-list"></div>
+                    <button class="btn-add-grade" data-corte="1">+ Añadir Nota/Peso</button>
+                    <div class="corte-result">Promedio del Corte: <span id="corte1-result">0.00</span></div>
+                </div>
+                <div class="corte-container" id="corte2">
+                    <h2 class="sword-name">II: Sandai Kitetsu (30%)</h2>
+                    <div class="grade-list"></div>
+                    <button class="btn-add-grade" data-corte="2">+ Añadir Nota/Peso</button>
+                    <div class="corte-result">Promedio del Corte: <span id="corte2-result">0.00</span></div>
+                </div>
+                <div class="corte-container" id="corte3">
+                    <h2 class="sword-name">III: Enma (40%)</h2>
+                    <div class="grade-list"></div>
+                    <button class="btn-add-grade" data-corte="3">+ Añadir Nota/Peso</button>
+                    <div class="corte-result">Promedio del Corte: <span id="corte3-result">0.00</span></div>
+                </div>
+                <div class="final-result-section">
+                    <button id="btn-calculate-materia">¡Corte Definitivo de Materia!</button>
+                    <div id="materia-result-display" class="result-display">
+                        <h3>Nota Final de la Materia:</h3>
+                        <span id="materia-final-grade">--</span>
+                        <p id="materia-final-message"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA 2: CALCULADORA DE PROMEDIO DEL SEMESTRE (POR CRÉDITOS) -->
+            <div id="tab-semestre" class="tab-pane">
+                 <!-- EXPLICACIÓN AÑADIDA -->
+                <p class="explanation-text">
+                    Ingresa la nota final que obtuviste en cada materia y el número de créditos que vale.
+                </p>
+                <div class="semestre-container">
+                    <h2 class="sword-name">Dominio del Semestre</h2>
+                    <div id="semestre-grade-list" class="grade-list">
+                        <!-- Las materias se añadirán aquí -->
+                    </div>
+                    <button id="btn-add-materia">+ Añadir Materia</button>
+                </div>
+                 <div class="final-result-section">
+                    <button id="btn-calculate-semestre">¡Corte Definitivo del Semestre!</button>
+                    <div id="semestre-result-display" class="result-display">
+                        <h3>Promedio Ponderado del Semestre:</h3>
+                        <span id="semestre-final-grade">--</span>
+                        <p id="semestre-final-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER AÑADIDO -->
+    <footer class="page-footer">
+        <p>Forjado con Haki por Ms_Castellanos11. © 2025</p>
+        <p>Inspirado en el universo de One Piece de Eiichirō Oda.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
